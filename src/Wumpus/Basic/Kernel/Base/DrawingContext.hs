@@ -54,9 +54,8 @@ import Wumpus.Basic.Kernel.Base.Units
 import Wumpus.Core                              -- package: wumpus-core
 import Wumpus.Core.Text.StandardEncoding
 
-import Control.Applicative
 import Data.Maybe
-import Data.Monoid
+
 
 -- | 'DrawingContext' - the \"graphics state\" of Wumpus-Basic. 
 -- DrawingContext is operated on within a Reader monad rather than 

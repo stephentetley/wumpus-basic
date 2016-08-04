@@ -49,8 +49,6 @@ import Wumpus.Core                              -- package: wumpus-core
 
 import Data.AffineSpace                         -- package: vector-space
 
-import Control.Applicative
-import Data.Monoid
 
 
 

@@ -141,7 +141,6 @@ import Data.AffineSpace                         -- package: vector-space
 import Data.VectorSpace
 
 import Data.List ( unfoldr )
-import Data.Monoid
 
 
 --------------------------------------------------------------------------------
@@ -421,7 +420,7 @@ trail_south_west = catline . go_south_west
 trail_up_left :: Num u => u -> CatTrail u
 trail_up_left = catline . go_up_left
 
-trail_up_right :: Num u => u -> CatTrail u
+trail_up_right :: u -> CatTrail u
 trail_up_right = catline . go_up_right
 
 trail_down_left :: Num u => u -> CatTrail u

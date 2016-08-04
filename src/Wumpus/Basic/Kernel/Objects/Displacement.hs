@@ -248,7 +248,7 @@ go_south_west = avec (1.25*pi)
 go_up_left :: Num u => u -> Vec2 u
 go_up_left d = V2 (-d) d
 
-go_up_right :: Num u => u -> Vec2 u
+go_up_right :: u -> Vec2 u
 go_up_right d = V2 d d
 
 go_down_left :: Num u => u -> Vec2 u

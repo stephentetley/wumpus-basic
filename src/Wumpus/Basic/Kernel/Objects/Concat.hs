@@ -43,7 +43,6 @@ import Wumpus.Basic.Kernel.Base.BaseDefs
 
 import Wumpus.Core                              -- package: wumpus-core
 
-import Data.Monoid
 
 infixr 6 `superior`, `anterior`
 

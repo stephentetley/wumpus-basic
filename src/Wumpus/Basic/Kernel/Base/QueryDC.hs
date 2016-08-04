@@ -76,7 +76,6 @@ import Wumpus.Core.Text.GlyphIndices
 
 import Data.VectorSpace                         -- package: vector-space
  
-import Control.Applicative
 import Data.Char
 import qualified Data.Map               as Map
 import Data.Maybe 
@@ -193,7 +192,7 @@ getTextColour   = asksDC dc_text_colour
 -- | Vertical distance between descender of a line and the 
 -- cap-height of the line below. 
 -- 
-textlineSpace :: (DrawingCtxM m, Fractional u, InterpretUnit u) => m u
+textlineSpace :: (DrawingCtxM m, InterpretUnit u) => m u
 textlineSpace = 
     post <$> asksDC dc_font_size <*> asksDC dc_line_spacing_factor
   where

@@ -36,7 +36,6 @@ import Wumpus.Basic.System.FontLoader.FontLoadMonad
 import Wumpus.Core                              -- package: wumpus-core
 
 import Control.Monad
-import Data.Monoid
 
 -- The file names of the Afm fonts match there PostScript names,
 -- the only difference is the addition of a @.afm@ extension.

@@ -51,8 +51,6 @@ import Wumpus.Basic.Kernel.Objects.Basis
 import Wumpus.Core                              -- package: wumpus-core
 
 
-import Control.Applicative
-import Data.Monoid
 
 --------------------------------------------------------------------------------
 
@@ -189,8 +187,7 @@ uconvImageF ma = Image $ \ctx ->
     in (a',w)
 
 
-uconvImageZ :: (InterpretUnit u, InterpretUnit u1) 
-            => Image u a -> Image u1 a
+uconvImageZ :: Image u a -> Image u1 a
 uconvImageZ ma = Image $ \ctx -> getImage ma ctx
 
 

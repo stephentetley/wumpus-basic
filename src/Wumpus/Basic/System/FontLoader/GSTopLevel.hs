@@ -35,7 +35,6 @@ import Wumpus.Basic.System.FontLoader.FontLoadMonad
 import Wumpus.Core                              -- package: wumpus-core
 
 import Control.Monad
-import Data.Monoid
 
 
 -- | 'loadGSFontMetrics' : 

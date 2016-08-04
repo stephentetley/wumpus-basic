@@ -70,8 +70,6 @@ import Wumpus.Core                              -- package: wumpus-core
 import Data.AffineSpace                         -- package: vector-space
 import Data.VectorSpace
 
-import Control.Applicative
-import Data.Monoid
 
 
 
@@ -225,14 +223,14 @@ qapplyLoc ma pt = normalizeCtxF pt >>= getLocQuery ma
 --------------------------------------------------------------------------------
 -- Affine instances
 
-instance (Real u, Floating u, InterpretUnit u, Rotate a) => 
+instance (InterpretUnit u, Rotate a) => 
     Rotate (LocImage u a) where
   rotate ang ma = promoteLoc $ \pt -> 
       normalizeCtxF pt >>= \dpt ->  
       fmap (rotate ang) $ getLocImage ma (rotate ang dpt)
 
 
-instance (Real u, Floating u, InterpretUnit u, RotateAbout a, u ~ DUnit a) => 
+instance (InterpretUnit u, RotateAbout a, u ~ DUnit a) => 
     RotateAbout (LocImage u a) where
   rotateAbout ang pt ma = promoteLoc $ \p0 ->
       normalizeCtxF p0 >>= \dp0 ->  
@@ -241,12 +239,12 @@ instance (Real u, Floating u, InterpretUnit u, RotateAbout a, u ~ DUnit a) =>
           getLocImage ma (rotateAbout ang dpt dp0)
 
 
-instance (Fractional u, InterpretUnit u, Scale a) => Scale (LocImage u a) where
+instance (InterpretUnit u, Scale a) => Scale (LocImage u a) where
   scale sx sy ma = promoteLoc $ \pt -> 
       normalizeCtxF pt >>= \dpt -> 
       fmap (scale sx sy) $ getLocImage ma (scale sx sy dpt)
 
-instance (InterpretUnit u, Translate a, ScalarUnit u, u ~ DUnit a) => 
+instance (InterpretUnit u, Translate a, u ~ DUnit a) => 
     Translate (LocImage u a) where
   translate dx dy ma = promoteLoc $ \pt -> 
       normalizeCtxF pt >>= \dpt -> 

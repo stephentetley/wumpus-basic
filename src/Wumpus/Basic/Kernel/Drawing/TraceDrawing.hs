@@ -69,8 +69,6 @@ import Wumpus.Basic.Kernel.Objects.LocImage
 
 import Wumpus.Core                              -- package: wumpus-core
 
-import Control.Applicative
-import Data.Monoid
 
 
 --------------------------------------------------------------------------------

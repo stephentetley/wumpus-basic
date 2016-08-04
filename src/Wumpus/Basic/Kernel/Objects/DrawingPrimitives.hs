@@ -80,7 +80,6 @@ import Wumpus.Basic.Kernel.Objects.LocThetaImage
 
 import Wumpus.Core                              -- package: wumpus-core
 
-import Control.Applicative
 
 
 -- Helpers

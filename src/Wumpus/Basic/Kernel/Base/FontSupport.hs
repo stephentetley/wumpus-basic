@@ -53,7 +53,6 @@ import Wumpus.Basic.Utils.HList
 import Wumpus.Core                              -- package: wumpus-core
 
 import qualified Data.Map      as Map
-import Data.Monoid
 
 
 

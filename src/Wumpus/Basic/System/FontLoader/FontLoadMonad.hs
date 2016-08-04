@@ -63,9 +63,13 @@ newtype FontLoadIO a = FontLoadIO {
 
 instance Functor FontLoadIO where
   fmap f ma = FontLoadIO $ getFontLoadIO ma >>= \(a,w) -> return (fmap f a, w)
+
+instance Applicative FontLoadIO where
+  pure a = FontLoadIO $ return (Right a, mempty)
+  (<*>)  = ap
  
 instance Monad FontLoadIO where
-  return a = FontLoadIO $ return (Right a, mempty)
+  return   = pure
   m >>= k  = FontLoadIO $ getFontLoadIO m >>= fn 
               where
                 fn (Left err, w) = return (Left err, w)

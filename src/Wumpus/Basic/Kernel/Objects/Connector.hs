@@ -54,8 +54,6 @@ import Wumpus.Basic.Kernel.Objects.Image
 
 import Wumpus.Core                              -- package: wumpus-core
 
-import Control.Applicative
-import Data.Monoid
 
 
 -- | ConnectorImage - function from DrawingContext and start and 

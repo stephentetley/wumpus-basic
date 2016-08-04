@@ -1,4 +1,5 @@
 {-# LANGUAGE TypeFamilies               #-}
+{-# LANGUAGE AllowAmbiguousTypes        #-}
 {-# OPTIONS -Wall #-}
 
 --------------------------------------------------------------------------------
@@ -36,7 +37,6 @@ import Wumpus.Basic.Kernel.Objects.LocImage
 
 import Wumpus.Core                              -- package: wumpus-core
 
-import Control.Applicative
 
 type family UState m :: *
 

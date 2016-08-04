@@ -58,7 +58,6 @@ import Wumpus.Core                              -- package: wumpus-core
 import Data.AdditiveGroup                       -- package: vector-space
 import Data.AffineSpace
 
-import Data.Monoid
 
 
 

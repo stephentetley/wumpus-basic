@@ -58,8 +58,6 @@ import Wumpus.Basic.Kernel.Objects.LocImage
 
 import Wumpus.Core                              -- package: wumpus-core
 
-import Control.Applicative
-import Data.Monoid
 
 -- | 'LocThetaImage' - function from start point, inclination and
 -- DrawingContext to a polymorphic /answer/ and a graphic 

@@ -71,7 +71,6 @@ import Wumpus.Core                              -- package: wumpus-core
 
 import Data.VectorSpace                         -- package: vector-space
 
-import Data.Monoid
 
 -- | Datatype enumerating the addressable positions of a rectangle 
 -- that can be derived for a 'PosObject'.  
@@ -223,7 +222,7 @@ orientationHeight (Orientation _ _ ymin ymaj) = ymin + ymaj
 
 -- | Rotate an Orientation about its origin (locus).
 --
-rotateOrientation :: (Real u, Floating u, Ord u) 
+rotateOrientation :: (Real u, Floating u) 
                => Radian -> Orientation u -> Orientation u
 rotateOrientation ang (Orientation { or_x_minor = xmin
                                    , or_x_major = xmaj

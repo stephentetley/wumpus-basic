@@ -53,7 +53,6 @@ import Wumpus.Basic.Kernel.Objects.LocThetaImage
 
 import Wumpus.Core                              -- package: wumpus-core
 
-import Data.Monoid
 
 --------------------------------------------------------------------------------
 
@@ -75,7 +74,7 @@ type BoundedLocThetaGraphic u   = LocThetaImage u (BoundingBox u)
 -- rotation. 
 --
 
-centerOrthoBBox :: (Real u, Floating u, Ord u)
+centerOrthoBBox :: (Real u, Floating u)
                 => Radian -> BoundingBox u -> BoundingBox u
 centerOrthoBBox theta bb = traceBoundary $ map (rotateAbout theta ctr) ps
   where

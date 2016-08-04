@@ -51,12 +51,6 @@ import Wumpus.Basic.Kernel.Objects.LocImage
 import Wumpus.Core                              -- package: wumpus-core
 
 
-import Control.Applicative
-import Data.Monoid
-
-
-
-
 -- | 'GenLocDrawing' is a reader-writer-state monad, unlike 
 -- 'GenLocTrace' there is no updateable current point, instead 
 -- the start point is supplied when the drawing is run and it 
@@ -208,8 +202,7 @@ runLocDrawing_ ma = ignoreAns $ runLocDrawing ma
 
 --------------------------------------------------------------------------------
 
-insertiImpl :: InterpretUnit u 
-            => Image u a -> GenLocDrawing st u a
+insertiImpl :: Image u a -> GenLocDrawing st u a
 insertiImpl gf = GenLocDrawing $ \ctx s -> 
     let (a,w1)   = runImage ctx gf in (a,s,w1) 
 

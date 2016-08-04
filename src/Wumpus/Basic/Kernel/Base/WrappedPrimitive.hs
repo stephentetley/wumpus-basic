@@ -38,8 +38,6 @@ import Wumpus.Basic.Utils.HList
 import Wumpus.Core                      -- package: wumpus-core
 
 
-import Data.Monoid
-
 
 
 -- | A wrapped version of 'Primitive' from Wumpus-Core that 

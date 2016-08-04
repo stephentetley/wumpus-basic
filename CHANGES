@@ -1,3 +1,61 @@
+ 
+0.24.0 to 0.25.0:
+
+  * Updated to work with GHC 8.
+ 
+0.23.0 to 0.24.0:
+
+  * Changes to type funs to work with GHC 7.4.
+ 
+  * Removed FormatCombinators module.
+
+0.22.0 to 0.23.0:
+
+  * Re-worked the Chain module and API.
+
+  * Replaced @ZDeco@ enumeration with @ZOrder@.
+
+  * Removed the @Basic.Geometry@ modules, they are superseded in 
+    Wumpus-Drawing. Some of the equivalent functionality is now
+    internal to the respective modules in Wumpus-Drawing - Wumpus
+    has scaled back the amount of /geometric/ types and operations
+    it wants to expose.  
+
+  * Renamed the @PlacedTrail@ object to @AnaTrail@ - the prefix 
+    vector is considered an /anacrusis/. Tidied up the API of the 
+    @Trail@ module.
+
+  * Moved @bezierArcPoints@ and @BezierMinorArc@ from 
+    @Basic.Geometry@ and marked the @Basic.Geometry@ code as 
+    obsolute.
+
+0.21.0 to 0.22.0:
+
+  * Reverted argument order of @run@ functions they back to the 
+    @monadLib@ style (args * monadic_operation) rather than @MTL@
+    style (monadic_operation * args). Typographically this seems 
+    better.
+
+  * Removed module @Geometry.Paths@ it is superseded in
+    Wumpus-Drawing.
+
+  * Added user state to PosObject and moved it into 
+    @Kernel.Drawing@.
+
+  * Changed the enumeration @DrawStyle@ to @DrawMode@. Added 
+    another enumeration @PathMode@.
+
+  * Changed Chain so that first item in the chain is the start 
+    point (previously the start point was iterated by the chain).
+
+  * Removed @ConnectorProps@ from the @DrawingContext@ , they are 
+    now used \"locally\" in Wumpus-Drawing.
+
+  * Added more vector constructors to 
+    @Kernel.Objects.Displacement@. 
+
+  * Added extra methods to the @Decorate@ class for annotating 
+    SVG elements.
 
 0.20.0 to 0.21.0:
 

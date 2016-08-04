@@ -106,8 +106,6 @@ import Wumpus.Core.Colour ( red, blue )
 import Data.AffineSpace                         -- package: vector-space
 import Data.VectorSpace
 
-import Control.Applicative
-import Data.Monoid
 
 --
 -- Note - PosObject could be in the @Object@ rather than @Drawing@
@@ -170,7 +168,7 @@ instance Monad (GenPosObject st u) where
               in (b, s2, o1 `mappend` o2, w1 `mappend` w2)
 
 
-instance (Monoid a, InterpretUnit u) => Monoid (GenPosObject st u a) where
+instance (Monoid a) => Monoid (GenPosObject st u a) where
   mempty = GenPosObject $ \_ _ s -> (mempty, s, mempty, mempty)
   ma `mappend` mb = GenPosObject $ \ctx pt s -> 
                     let (a,s1,o1,w1) = getGenPosObject ma ctx pt s
@@ -264,7 +262,7 @@ makePosObject ma gf = GenPosObject $ \ctx pt s ->
 --
 -- Build an empty 'PosGraphicObject'.
 --
-emptyPosObject :: (Monoid a, InterpretUnit u) => GenPosObject st u a
+emptyPosObject :: Monoid a => GenPosObject st u a
 emptyPosObject = mempty
 
     
@@ -452,12 +450,12 @@ posTextPrim         :: InterpretUnit u
 posTextPrim = makeTextPO CAP_HEIGHT_PLUS_DESCENDER . either escapeString id
 
 
-multilinePosText :: (Fractional u, InterpretUnit u)
+multilinePosText :: (InterpretUnit u)
                  => VAlign -> String -> PosGraphic u
 multilinePosText vspec xs = 
     multilinePosEscText vspec $ map escapeString $ lines xs
 
-multilinePosEscText :: (Fractional u, InterpretUnit u)
+multilinePosEscText :: (InterpretUnit u)
                     => VAlign -> [EscapedText] -> GenPosGraphic st u
 multilinePosEscText vspec xs = addMargins $ GenPosObject $ \ctx pt s -> 
       let sep    = runQuery ctx textlineSpace
@@ -582,7 +580,7 @@ hkernOrientationZero xs =
 -- Combining PosObject
 
 
-instance (Monoid a, InterpretUnit u) => ZConcat (GenPosObject st u a) where
+instance (Monoid a) => ZConcat (GenPosObject st u a) where
   superior = mappend
   anterior = flip mappend
 

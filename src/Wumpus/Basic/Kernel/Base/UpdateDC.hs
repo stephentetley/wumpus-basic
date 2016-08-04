@@ -105,7 +105,6 @@ import Wumpus.Basic.Kernel.Base.Units
 
 import Wumpus.Core                              -- package: wumpus-core
 
-import Control.Applicative
 
 
 --------------------------------------------------------------------------------

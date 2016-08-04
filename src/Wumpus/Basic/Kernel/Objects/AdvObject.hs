@@ -63,8 +63,6 @@ import Wumpus.Core                              -- package: wumpus-core
 
 import Data.VectorSpace                         -- package: vector-space
 
-import Control.Applicative
-import Data.Monoid
 
 
 
@@ -157,7 +155,7 @@ instance DrawingCtxM (AdvObject u) where
 
 
 
-instance (Monoid a, InterpretUnit u) => Monoid (AdvObject u a) where
+instance (Monoid a) => Monoid (AdvObject u a) where
   mempty = AdvObject $ \_ _ -> (mempty, mempty, mempty)
   ma `mappend` mb = AdvObject $ \ctx pt -> 
                     let (a,v1,w1) = getAdvObject ma ctx pt
@@ -207,7 +205,7 @@ makeAdvObject ma gf = AdvObject $ \ctx pt ->
 -- @Wumpus-Core@ and is not drawn, the answer vector generated is
 -- the zero vector @(V2 0 0)@.
 -- 
-emptyAdvObject :: (Monoid a, InterpretUnit u) => AdvObject u a
+emptyAdvObject :: Monoid a => AdvObject u a
 emptyAdvObject = mempty
 
 
@@ -229,7 +227,7 @@ blankAdvObject v1 = AdvObject $ \ctx _ ->
 
 -- Helper for list concatenation.
 -- 
-listcat :: (Monoid a, InterpretUnit u)
+listcat :: Monoid a
         => (AdvObject u a -> AdvObject u a -> AdvObject u a)
         -> [AdvObject u a] -> AdvObject u a
 listcat _ []     = mempty
@@ -253,14 +251,14 @@ infixr 6 `advance`
 --
 -- The final answer is the sum of both advance vectors.
 --
-advance :: (Monoid a, InterpretUnit u) 
+advance :: Monoid a 
         => AdvObject u a -> AdvObject u a -> AdvObject u a
 advance = mappend
   
 
 -- | Concatenate the list of AdvObjects with 'advance'.
 --
-advances :: (Monoid a, InterpretUnit u) 
+advances :: Monoid a
          => [AdvObject u a] -> AdvObject u a
 advances = mconcat
 
@@ -287,7 +285,7 @@ evenspace v = listcat (advspace v)
 -- | Repeat the AdvObject @n@ times, moving each time with 
 -- 'advance'.
 --
-advrepeat :: (Monoid a, InterpretUnit u)
+advrepeat :: Monoid a
           => Int -> AdvObject u a -> AdvObject u a
 advrepeat n = advances . replicate n
 
@@ -295,7 +293,7 @@ advrepeat n = advances . replicate n
 -- | Concatenate the list of AdvObjects, going next and adding
 -- the separator at each step.
 --
-punctuate :: (Monoid a, InterpretUnit u)
+punctuate :: Monoid a
           => AdvObject u a -> [AdvObject u a] -> AdvObject u a
 punctuate sep =  listcat (\a b -> a `advance` sep `advance` b)
 

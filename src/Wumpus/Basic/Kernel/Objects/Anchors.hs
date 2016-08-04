@@ -2,6 +2,7 @@
 {-# LANGUAGE MultiParamTypeClasses      #-}
 {-# LANGUAGE FlexibleInstances          #-}
 {-# LANGUAGE KindSignatures             #-}
+{-# LANGUAGE RankNTypes                 #-}
 {-# OPTIONS -Wall #-}
 
 --------------------------------------------------------------------------------
@@ -222,7 +223,7 @@ instance Fractional u => CardinalAnchor (BoundingBox u) where
   west  (BBox (P2 xl ylo) (P2 _  yhi)) = P2 xl (ylo+0.5*(yhi-ylo))
 
 
-instance Fractional u => CardinalAnchor2 (BoundingBox u) where
+instance CardinalAnchor2 (BoundingBox u) where
   northeast (BBox _ ur)                 = ur
   southeast (BBox (P2 _ ylo) (P2 xr _)) = P2 xr ylo
   southwest (BBox ll _)                 = ll
