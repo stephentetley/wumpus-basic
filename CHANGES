@@ -1,0 +1,427 @@
+
+0.20.0 to 0.21.0:
+
+  * The code from the @Kernel.Base.UserState@ module has been 
+    moved to the module @Kernel.Drawing.Basis@.
+
+  * Moved @Image@ and @Query@ from @Objects.Basis@ to new module
+    @Objects.Image@. Moved @Chain@, @CtxPicture@ and 
+    @TraceDrawing@ into the new @Drawing@ folder.
+
+  * Added @Wumpus.Basic.Kernel.Drawing.LocDrawing@ module.
+ 
+  * Rationalized the combinators exported by the drawing objects 
+    @Image@, @LocImage@, @LocThetaImage@ and @Connector@.
+ 
+
+0.18.0 to 0.20.0 (no release numbered v0.19.0):
+
+  * Added text advance-vector calculations to @QueryDC@ - 
+    previously they were in Wumpus-Drawing.
+ 
+  * Changed argument order of @run@ functions to follow the usual
+    style - monadic action first and then dependent parameters 
+    (initial state, reader environment etc.).
+ 
+  * Changed representation of Chains to a monadic type with an 
+    explicit operation for next position.
+
+  * Removed @PrimW@ type - pairs are now used instead. 
+
+  * Removed transformer version of @TraceDrawing@. All operations 
+    in TraceDrawing are now specialized to work only on the 
+    @TraceDrawing@ type. Added @UserState@ to TraceDrawing and
+    other drawing monads to compensate for the loss of
+    expressiveness.
+
+  * Changed the internals of @AdvObject@ and @PosObject@ so they 
+    are more idiomatic - both are now essentially reader-writer 
+    monads. Added PosObject functions for text primitives (moved 
+    from Wumpus-Drawing).
+
+  * Changed the @obliterate@ method of the @Decorate@ class.
+
+  * Removed the Semigroup (OPlus) and Bifunctor classes. They are 
+    no longer so pertinent now that Image, LocImage etc. are 
+    newtypes rather than /ContextFuns/.
+
+  * Changed internals of LocImage, LocThetaImage and  Connector 
+    types so the internal points always have Double (PostScript 
+    point) as the unit. This fixes a bug where otherwise changing
+    the font size for drawings with Em or En units would break the
+    layout.
+
+  * Added @ORIGIN@ to the @RectAddress@ enumeration. I had 
+    overlooked that @BLC /= ORIGIN@.
+
+  * Added underline-position and underline-thickness to the font 
+    metrics read by the font loader.
+
+0.17.0 to 0.18.0:
+ 
+  * Major change - removed @ContextFun@ from @Kernel.Base@. Now 
+    the drawing objects (Image, LocImage, Connector...) are 
+    newtype wrapped Reader-Writer monads rather than aliases to 
+    one of the arity family of ContextFuns. Being newtypes gives
+    a lot better opportunities for overloading.
+
+  * Changed Displacement API - it is smaller, and the function 
+    naming is more uniform.
+  
+  * Changed @DrawingPimitives@ to use @DrawStyle@.
+  
+  * Moved vertices generating functions from @Geometry.Path@ to 
+    @Geometry.Vertices@.
+ 
+0.16.0 to 0.17.0:
+
+  * Changed representation of ContextFuns - context funs are no 
+    longer an arity family of newtypes. The new representation 
+    is simpler, but some of the opportunities for overloading 
+    have been lost.
+
+  * Substantial round of renaming for the @DrawingContext@ types
+    an query and update functions.
+
+  * Re-worked the font metrics and font loader modules. The new
+    names should be more systematic. Removed the need for the 
+    GhostScript font modules to match PostScript names to 
+    GhostScript font files.    
+
+  * Superceded the PointSupplyM class by adding snapping grid 
+    scaling to the DrawingContext. 
+ 
+  * Removed @ScalingContext@ module.
+
+  * Made text colour a distinct property in the DrawingContext. 
+    Text is now drawn with the text colour rather than the stroke 
+    colour.
+
+  * Added FontLoadLog to the DrawingContext - this allows access 
+    to the errors recorded during font loading.
+
+0.15.0 to 0.16.0:
+
+  * Moved the Geometry modules from Wumpus-Drawing into 
+    Wumpus-Basic.
+
+  * Re-worked the @CtxPicture@ API, although the current naming 
+    scheme is not satisfactory.
+
+  * Added extra Anchor classes.
+
+  * Added @PosImage@ object - this is a rectangle-framed object 
+    that can be drawn from any of its corners or its center. 
+
+  * Added @CF3@, an arity three /ContextFunction/.
+
+  * Added @Displacement@ module. This defines the @PointDisplace@
+    type and provides a library of @PointDisplace@ functions.
+    Note - some of the new functions have taken names previously 
+    used for anchor projection functions (@northwards@, 
+    @southwards@, etc.), anchor projections are now build with the 
+    function @projectAnchor@.
+
+  * Added the property @descender@ to the font metrics.
+
+  * Split drawing primitives from type in @Objects.Graphic@, 
+    drawing primitives are now in the module 
+    @Objects.DrawingPrimitives@.
+
+0.14.0 to 0.15.0:
+ 
+  * Split previous @Wumpus-Basic@ package into two packages:
+    @Wumpus-Basic@ and @Wumpus-Drawing@. This is a pratical move 
+    to separate the developed (although not yet polished) @Kernel@ 
+    and @FontLoader@ code from the prototypical @Drawing@ code.
+
+  * Renamed the @Drawing@ object to @CtxPicture@. Although 
+    @CtxPicture@ is a less pleasant name, it should be less 
+    confusing. A @CtxPicture@ is the essentially the @Picture@ 
+    type from Wumpus-Core with an implicit context - 
+    @ContextPicture@ is simply too long and @CtxPicture@ is 
+    almost jibberish but the previous unrelated name @Drawing@ 
+    was not helpful.
+
+  * @Kernel.Base.ScalingContext@ has been simplified. 
+    ScalingContexts are no longer manipulated via a custom Reader
+    monad or transformer as the type signatures were too unwieldy.
+
+  * Added @TextMargin@ to the @DrawingContext@ - Wumpus-Drawing 
+    can now calculate more appealing bounding boxes for text.
+
+0.13.0 to 0.14.0:
+
+  * Re-organised module hierarchy, Wumpus-Basic is now divided 
+    into two layers - Basic (Font loader, utils, kernel drawing) 
+    and Drawing - /constructed/ graphic objects like arrows, dots, 
+    etc.
+
+  * Re-designed the /ContextFunction/ function types. Context
+    functions with different numbers of /static arguments/ are 
+    now separate newtypes. This has allowed a major cull of the 
+    combinators operating on context functions (@prepro@, 
+    @postpro@, @situ@, etc.) and now only a handful of special
+    combinators are needed. As the newtypes are instances of 
+    Monad and Applicative the usual Applicative and Monad 
+    combinators are now more readily useful.
+
+  * Work on the font loader code to improve its robustness, and 
+    improved error signalling on load failure. Loading glyph 
+    metrics now returns both the metrics (possibly fallback 
+    metrics if parsing failed) and a log.
+
+0.12.0 to 0.13.0:
+
+  * Major changes to @Basic.Graphic@ modules. @DrawingR@ is 
+    renamed @Drawing@ and is substantially re-worked. Graphic 
+    /functional/ types are now encapulated in the Drawing 
+    constructor @Drawing (ctx -> pt -> prim)@ rather than 
+    partially outside it @pt -> Drawing (ctx -> prim)@. 
+    @Drawing@ monad renamed @TraceDrawing@ and @DrawingT@ 
+    transformer renamed @TraceDrawingT@.
+
+  * Rudimentary font loading added, only AFM files are supported.
+
+  * @Basic.Shapes.Coordinate@ re-worked. The Coordinate type is 
+    now more like the Shapes types (excepting the intentional 
+    difference in drawing style).
+
+  * @Basic.Shapes.Plaintext@ removed.
+
+  * @Basic.Text.LRText@ completely redesigned.
+
+0.11.0 to 0.12.0:
+
+  * Changes Base types in  @Basic.Graphic@. The @Graphic@ and 
+    @Image@ types now produce (wrapped) @Primitives@, rather than 
+    Hughes lists of @Primitives@. This means they can now be 
+    transformed with the affine transformations. Removed the 
+    function @ati@, it is replaced by @at@.
+
+  * Added @Basic.Utils.Combinators@.
+
+  * Arrowheads and Connectors reworked - Arrowheads are now a 
+    functional type, Connectors use new Image combining 
+    operations from @Basic.Graphic.Base@.
+
+  * Path connectors re-worked and renamed. 
+
+  * Dot hierarchy changed - @Basic.Dots@ becomes 
+    @Basic.Dots.AnchorDots@; @Basic.Dots.Primitive@ becomes
+    @Basic.Dots.Marks@.
+
+  * @Basic.Shapes@ - internals reworked.
+
+0.10.0 to 0.11.0:
+ 
+  * Reworked arrowheads and connectors - connectors are now 
+    configurable: there are functions to make connectors with 
+    a left arrowhead, right arrowhead, none or both.  
+
+  * Reworked shapes - internally shapes now create a @Path@ rather 
+    than a @Graphic@ this means the path can be manipulated (e.g. 
+    round cornered rectangles, diamonds... can be constructed).
+    @Coordinate@ is no longer a @Shape@ - it is now similar object 
+    but of a different type. Likewise, @FreeLabel@ has been 
+    replaced by @Plaintext@ which is not a @Shape@, but has some 
+    similar properties.
+
+  * @Basic.Paths.Base@ - @Path@ type changed, @PathEmpty@ 
+    constructor removed so empty paths cannot be created. This 
+    allows a better API for taking points on a path. It also 
+    means @Path@ is no longer an instance of Monoid. Type changes 
+    to various functions (e.g. @tipR@, @tipL@) reflecting that as 
+    paths cannot now be empty, functions on them can generally be 
+    total. @toPrimPathU@ removed as converting to a PrimPath as 
+    now always /safe/. @tracePoints@ renamed @traceLinePoints@, 
+    @tracePointsCurve@ renamed @traceCurvePoints@, @midpoint@ 
+    renamed @midway@.
+
+  * @Basic.Graphic@ - the types @ConnDrawingR@, @ConnGraphic@ etc.
+    have had their names expanded to @ConnectorDrawingR@, 
+    @ConnectorGraphic@... 
+
+  * @Basic.SafeFont@ - font names changed to use underscore 
+    separators rather than camelCase. Wumpus generally uses 
+    underscored names for /constants/.
+
+  * Removed @conn@ from @Basic.Graphic.Drawing@. Connectors should 
+    be used instead.
+
+  * The class @DrawingCtxM@ now has @Applicative@ as a superclass. 
+
+  * @lineSpacing@ renamed @baselineSpacing@.
+
+
+0.9.0 to 0.10.0:
+
+  * @Basic.Graphic.BaseClasses@ and @Basic.Graphic.BaseTypes@ 
+    merged into same module so they can depend on each other 
+    without orphans instances.
+
+  * @DrawingF@ renamed to @DrawingR@, the related type synonyms
+    have also been changed, e.g. @LocDrawingF@ is now 
+    @LocDrawingR@.
+
+  * Method names in the @DrawingCtxM@ class changed - @askCtx@ is
+    now @askDC@, @localCtx@ is now @localize@. Removed the 
+    functions @askDF@, @asksDF@, @pureDF@ that worked for 
+    @DrawingF@ (now @DrawingR@), @DrawingR@ now uses the 
+    Applicative\'s @pure@ and the @DrawingCtxM@ class for these 
+    functionalities.
+
+  * @Basic.Graphic.DrawingContext@ - renamed @primary_colour@ to
+    @stroke_colour@ and @secondary_colour@ to @fill_colour@. The 
+    setter functions has been similarly renamed.
+
+  * Added the type synonym @DrawingContextF@ to 
+    @Basic.Graphic.DrawingContext@. Changed relevant function
+    signatures to use it.
+
+  * Re-worked the Path modules - base types entirely different,
+    connectors entirely different, monadic path construction 
+    largely the same.
+
+  * Initial work on round cornered paths.
+ 
+  * Removed the type class @TextAnchor@ from @Basic.Anchors@. 
+    This was a left-over from a previous implementation of 
+    Shapes and is not relevant to the current implementation.
+ 
+  * Added @DirectionContext@ to @Basic.Graphic@.
+
+  * @localLG@ removed it can be acheived with composition -
+    @localize upd . loc_graphic_function@. @lgappend@ is also 
+    removed - it can be recreated applicatively.
+
+0.8.0 to 0.9.0:
+
+  * Re-worked @Basic.Text.LRSymbol@ changed the type name and the
+    types of the run functions. Added more symbols and a new demo 
+    @Symbols.hs@.
+
+  * @ScalingContext@ added to @Basic.Graphic@. Changed 
+    @monoTextWidth@ to take a character count, the old behaviour 
+    is recreated by the new function @monoTextLength@. 
+
+  * @Basic.Graphic.Chain@ removed. It is now superseded by
+    @Basic.Chains@.
+
+  * Added new property to @DrawingContext@ for line spacing 
+    scaling factor, and added a new drawing primitive 
+    @textlineMulti@ for multi-line, left justified labels.
+
+  * Synthezied attribute /getters/ such as @textDimensions@ moved
+    from @Basic.Graphic.DrawingContext@ to the new module
+    @Basic.Graphic.Query@. The type of all the functions has 
+    changed to DrawingF. @lowerxHeight@ is renamed 
+    @monoLowerxHeight@ emphasizing that the metrics pertain to
+    monospaced Courier font.
+
+  * Added Shapes modules.
+ 
+  * TurtleMonad module - the TurtleDrawing type and run functions
+    have been removed and the internals have been reworked. 
+    Turtle is now run solely as a /local effect/ within the 
+    Drawing monad. 
+
+
+0.7.0 to 0.8.0:
+
+  * Re-introduced LRText and LRSymbol - they now work with 
+    Wumpus-Core\'s kerning support.
+ 
+  * Changes to @Graphic.Basic.BaseTypes@ - @DrawingObject@ 
+    renamed to @DrawingF@. @HPrim@ wrapped as a newtype to 
+    support a Monoid instance. Removed @appendGraphic@ and @gcat@ 
+    as they can be achieved with @mappend@ and @mconcat@. 
+    @appendAt@ renamed to @lgappend@. @PointT@ remaned to 
+    @PointF@.
+
+  * Changes to @Graphic.Basic.Drawing@ - @drawAt@, @drawAtImg@, 
+    @drawConn@, @drawConnImg@ all removed. They are replaced 
+    by @draw@ and @drawi@ together with then new @at@ and @conn@
+    combinators.
+
+  * Changes to @Basic.Graphic.PrimGraphic@ - @localDrawingContext@
+    renamed to @localLG@ and moved to @Basic.Graphic.BaseTypes@.
+
+  * Updates to @Basic.SafeFonts@ to work with changes to 
+    @Wumpus.Core@.
+
+0.6.0 to 0.7.0:
+
+  * Major rework of Graphic types, the old types (AGraphic, 
+    GraphicF etc.) and the old drawing monads have been removed. 
+    The new types are based on the AGraphic and related types but 
+    their implementation is different. The new types track the 
+    /graphics state/ within the type (the DrawingContext) plus 
+    how to draw themselves. For real drawings, graphics are 
+    collected with a Writer-like monad the @Basic.Graphic.Drawing@ 
+    monad which replaces the DrawingCtx and Trace monads. The 
+    Turtle monad remains and has been updated to work with the new
+    drawing monads.
+
+  * LRText and LRSymbol modules temporarily removed as they 
+    contradict the new, optimized kerning functionality in 
+    @Wumpus.Core@.
+
+0.5.0 to 0.6.0:
+
+  * Updates to work with wumpus-core-0.30.0.
+
+  * The code from @Basic.Graphic@ has been moved in to 
+    @Basic.Graphic.Primitive@ - this module is due a major 
+    overhaul. @Basic.Graphic@ is now an /import/ shim for
+    @Basic.Graphic.Primitive@.
+
+0.4.0 to 0.5.0:
+
+  * Re-worked the PictureLanguage module.
+
+  * SVGColours and X11Colours moved into @Wumpus.Basic.Colour@.
+    Naming scheme for colours changed to use underscore between 
+    words rather than camelCase.
+ 
+  * Updates to work with wumpus-core-0.30.0.
+ 
+0.3.0 to 0.4.0:
+
+  * Reworked the monads. Monads.DrawingMonad replaces 
+    Monads.Trace, Monads.DrawingCtx, Monads.ConsDrawing. The 
+    SnocDrawing monads have been removed as they were a design
+    mistake.
+
+  * Removed MGraphicF type, added AGraphic.
+
+  * Initial work on arrow drawing and extended text drawing.
+
+0.2.0 to 0.3.0 :
+ 
+  * Added the anchors, monads, drawingAttrs...
+
+  * Added the module @PictureLanguage@ from Wumpus-Core.
+    It is located with the path prefix @Wumpus.Deprecated@.
+    At some point it will be replaced...
+
+  * Basic.Graphic - rectangles and lines now take the supplied
+    point to be the center rather than the bottom-left corner.
+    Name changes - @circle@ changed to @disk@, @text@ changed to 
+    @textline@.
+
+0.1.1 to 0.2.0:
+
+  * Added the module @Wumpus.Basic.Graphic@.
+
+  * SafeFonts changed to be size neutral. PostScript\'s 
+    @scalefont@ command (which wumpus-core uses in the generated
+    output) should be able to scale to any integer size.
+
+  * New demo @ColourCharts.hs@.
+
+0.1.0 to 0.1.1:
+
+  * Added missing LICENSE file to the Cabal file.
+
+  * Added this CHANGES file.
